@@ -1,21 +1,19 @@
 "use client";
+
 import { EmailIcon, PasswordIcon } from "@/assets/icons";
-import { signIn } from "@/lib/auth/auth-client";
+import { signUp } from "@/lib/auth/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import React, { useState } from "react";
 import InputGroup from "../FormElements/InputGroup";
-import { Checkbox } from "../FormElements/checkbox";
 
-export default function SigninWithPassword() {
+export default function SignupWithPassword() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [data, setData] = useState({
-    email: process.env.NEXT_PUBLIC_DEMO_USER_MAIL || "",
-    password: process.env.NEXT_PUBLIC_DEMO_USER_PASS || "",
-    remember: false,
+    name: "",
+    email: "",
+    password: "",
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -30,9 +28,11 @@ export default function SigninWithPassword() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const callbackURL = searchParams.get("callbackUrl") || "/";
-      await signIn.email({
+      await signUp.email({
+        name: data.name,
         email: data.email,
         password: data.password,
         callbackURL,
@@ -40,7 +40,7 @@ export default function SigninWithPassword() {
       router.push(callbackURL);
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign in failed");
+      setError(err instanceof Error ? err.message : "Sign up failed");
     } finally {
       setLoading(false);
     }
@@ -48,6 +48,16 @@ export default function SigninWithPassword() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <InputGroup
+        type="text"
+        label="Name"
+        className="mb-4 [&_input]:py-[15px]"
+        placeholder="Enter your name"
+        name="name"
+        handleChange={handleChange}
+        value={data.name}
+      />
+
       <InputGroup
         type="email"
         label="Email"
@@ -63,35 +73,12 @@ export default function SigninWithPassword() {
         type="password"
         label="Password"
         className="mb-5 [&_input]:py-[15px]"
-        placeholder="Enter your password"
+        placeholder="Create a password"
         name="password"
         handleChange={handleChange}
         value={data.password}
         icon={<PasswordIcon />}
       />
-
-      <div className="mb-6 flex items-center justify-between gap-2 py-2 font-medium">
-        <Checkbox
-          label="Remember me"
-          name="remember"
-          withIcon="check"
-          minimal
-          radius="md"
-          onChange={(e) =>
-            setData({
-              ...data,
-              remember: e.target.checked,
-            })
-          }
-        />
-
-        <Link
-          href="/auth/forgot-password"
-          className="hover:text-primary dark:text-white dark:hover:text-primary"
-        >
-          Forgot Password?
-        </Link>
-      </div>
 
       <div className="mb-4.5">
         <button
@@ -99,12 +86,13 @@ export default function SigninWithPassword() {
           disabled={loading}
           className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary p-4 font-medium text-white transition hover:bg-opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          Sign In
+          Sign Up
           {loading && (
             <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-white border-t-transparent dark:border-primary dark:border-t-transparent" />
           )}
         </button>
       </div>
+
       {error && <p className="text-sm text-red-500">{error}</p>}
     </form>
   );

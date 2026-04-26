@@ -7,6 +7,7 @@ import "jsvectormap/dist/jsvectormap.css";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 import type { PropsWithChildren } from "react";
+import { Toaster } from "sonner";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -25,6 +26,15 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Providers>
           <NextTopLoader color="#5750F1" showSpinner={false} />
 
+          <Toaster
+            position="bottom-right"
+            richColors
+            closeButton
+            duration={5000}
+            toastOptions={{
+              className: "dark:bg-gray-dark dark:border-dark-3 dark:text-white",
+            }}
+          />
           {children}
         </Providers>
       </body>
