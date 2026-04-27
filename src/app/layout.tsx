@@ -26,6 +26,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <Providers>
           <NextTopLoader color="#5750F1" showSpinner={false} />
 
+          {children}
+
           <Toaster
             position="bottom-right"
             richColors
@@ -35,7 +37,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
               className: "dark:bg-gray-dark dark:border-dark-3 dark:text-white",
             }}
           />
-          {children}
         </Providers>
       </body>
     </html>

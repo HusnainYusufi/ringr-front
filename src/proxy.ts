@@ -8,7 +8,7 @@ const AUTH_ONLY_PATHS = ["/auth/sign-in", "/auth/sign-up"];
 //   { prefix: "/dashboard/users", requiredRole: "admin" },
 // ];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const session = await auth.api.getSession({

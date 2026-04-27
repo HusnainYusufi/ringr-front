@@ -6,19 +6,52 @@ import {
   DropdownContent,
   DropdownTrigger,
 } from "@/components/ui/dropdown";
+import { signOut, useSession } from "@/lib/auth/auth-client";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
 
 export function UserInfo() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
-  const USER = {
-    name: "John Smith",
-    email: "johnson@nextadmin.com",
-    img: "/images/user/user-03.png",
+  const session = useSession();
+
+  async function handleLogout() {
+    setIsOpen(false);
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/auth/sign-in");
+        },
+      },
+    });
+  }
+
+  if (session.isPending) {
+    return (
+      <div className="flex items-center gap-3" role="presentation">
+        <span className="inline-block size-12 animate-pulse rounded-full bg-gray-200" />
+
+        <div className="relative h-7 w-fit">
+          <span className="flex h-7 w-30 animate-pulse items-center justify-end rounded-full bg-gray-200 pr-2"></span>
+          <ChevronUpIcon
+            aria-hidden
+            className="absolute right-2 top-1/2 -translate-y-1/2 rotate-180 text-gray-400/60"
+            strokeWidth={1.5}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  const user = {
+    name: session?.data?.user?.name as string,
+    email: session?.data?.user?.email as string,
+    img: session?.data?.user?.image as string,
   };
 
   return (
@@ -27,16 +60,20 @@ export function UserInfo() {
         <span className="sr-only">My Account</span>
 
         <figure className="flex items-center gap-3">
-          <Image
-            src={USER.img}
-            className="size-12"
-            alt={`Avatar of ${USER.name}`}
-            role="presentation"
-            width={200}
-            height={200}
-          />
+          {user?.img ? (
+            <Image
+              src={user.img}
+              className="size-12 rounded-full"
+              alt={`Avatar of ${user.name}`}
+              role="presentation"
+              width={200}
+              height={200}
+            />
+          ) : (
+            <UserAvatar />
+          )}
           <figcaption className="flex items-center gap-1 font-medium text-dark dark:text-dark-6 max-[1024px]:sr-only">
-            <span>{USER.name}</span>
+            <span className="max-w-24 truncate">{user.name}</span>
 
             <ChevronUpIcon
               aria-hidden
@@ -57,21 +94,27 @@ export function UserInfo() {
         <h2 className="sr-only">User information</h2>
 
         <figure className="flex items-center gap-2.5 px-5 py-3.5">
-          <Image
-            src={USER.img}
-            className="size-12"
-            alt={`Avatar for ${USER.name}`}
-            role="presentation"
-            width={200}
-            height={200}
-          />
+          {user?.img ? (
+            <Image
+              src={user.img}
+              className="size-12 rounded-full"
+              alt={`Avatar of ${user.name}`}
+              role="presentation"
+              width={200}
+              height={200}
+            />
+          ) : (
+            <UserAvatar />
+          )}
 
           <figcaption className="space-y-1 text-base font-medium">
             <div className="mb-2 leading-none text-dark dark:text-white">
-              {USER.name}
+              {user.name}
             </div>
 
-            <div className="leading-none text-gray-6">{USER.email}</div>
+            <div className="w-full max-w-[190px] truncate leading-none text-gray-6">
+              {user.email}
+            </div>
           </figcaption>
         </figure>
 
@@ -106,7 +149,7 @@ export function UserInfo() {
         <div className="p-2 text-base text-[#4B5563] dark:text-dark-6">
           <button
             className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-[9px] hover:bg-gray-2 hover:text-dark dark:hover:bg-dark-3 dark:hover:text-white"
-            onClick={() => setIsOpen(false)}
+            onClick={handleLogout}
           >
             <LogOutIcon />
 
@@ -115,5 +158,13 @@ export function UserInfo() {
         </div>
       </DropdownContent>
     </Dropdown>
+  );
+}
+
+function UserAvatar() {
+  return (
+    <span className="flex size-12 items-center justify-center rounded-full border bg-gray-2 text-dark outline-none dark:border-dark-4 dark:bg-dark-2 dark:text-white">
+      <UserIcon />
+    </span>
   );
 }
