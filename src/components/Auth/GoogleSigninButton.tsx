@@ -30,7 +30,7 @@ export default function GoogleSigninButton({ text }: { text: string }) {
       type="button"
       onClick={handleGoogleSignIn}
       disabled={loading}
-      className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray-2 p-[15px] font-medium hover:bg-opacity-50 disabled:cursor-not-allowed disabled:opacity-70 dark:border-dark-3 dark:bg-dark-2 dark:hover:bg-opacity-50"
+      className="flex w-full cursor-pointer items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray-1 p-3.75 font-medium outline-0 hover:bg-gray-2 focus-visible:ring-1 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-70 dark:border-dark-3 dark:bg-dark-2"
     >
       <GoogleIcon />
       {loading ? "Redirecting..." : `${text} with Google`}

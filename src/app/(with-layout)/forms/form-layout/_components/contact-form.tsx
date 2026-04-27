@@ -5,7 +5,7 @@ import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 
 export function ContactForm() {
   return (
-    <ShowcaseSection title="Contact Form" className="!p-6.5">
+    <ShowcaseSection title="Contact Form" className="p-6.5!">
       <form action="#">
         <div className="mb-4.5 flex flex-col gap-4.5 xl:flex-row">
           <InputGroup

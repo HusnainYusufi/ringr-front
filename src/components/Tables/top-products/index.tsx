@@ -44,7 +44,7 @@ export async function TopProducts() {
               <TableCell className="flex min-w-fit items-center gap-3 pl-5 sm:pl-6 xl:pl-7.5">
                 <Image
                   src={product.image}
-                  className="aspect-[6/5] w-15 rounded-[5px] object-cover"
+                  className="aspect-6/5 w-15 rounded-[5px] object-cover"
                   width={60}
                   height={50}
                   alt={"Image for product " + product.name}

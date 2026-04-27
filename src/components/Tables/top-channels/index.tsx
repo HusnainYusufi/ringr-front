@@ -28,9 +28,9 @@ export async function TopChannels({ className }: { className?: string }) {
       <Table>
         <TableHeader>
           <TableRow className="border-none uppercase [&>th]:text-center">
-            <TableHead className="min-w-[120px] !text-left">Source</TableHead>
+            <TableHead className="min-w-[120px] text-left!">Source</TableHead>
             <TableHead>Visitors</TableHead>
-            <TableHead className="!text-right">Revenues</TableHead>
+            <TableHead className="text-right!">Revenues</TableHead>
             <TableHead>Sales</TableHead>
             <TableHead>Conversion</TableHead>
           </TableRow>
@@ -56,7 +56,7 @@ export async function TopChannels({ className }: { className?: string }) {
 
               <TableCell>{compactFormat(channel.visitors)}</TableCell>
 
-              <TableCell className="!text-right text-green-light-1">
+              <TableCell className="text-right! text-green-light-1">
                 ${standardFormat(channel.revenues)}
               </TableCell>
 

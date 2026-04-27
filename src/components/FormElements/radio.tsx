@@ -34,7 +34,7 @@ export function RadioInput({
           />
           <div
             className={cn(
-              "mr-2 flex size-5 items-center justify-center rounded-full border peer-checked:[&>*]:block",
+              "mr-2 flex size-5 items-center justify-center rounded-full border peer-checked:*:block",
               {
                 "border-primary peer-checked:border-6": variant === "circle",
                 "border-dark-5 peer-checked:border-primary peer-checked:bg-gray-2 dark:border-dark-6 dark:peer-checked:bg-dark-2":

@@ -38,7 +38,7 @@ export async function ChatsCard() {
                 />
               </div>
 
-              <div className="relative flex-grow">
+              <div className="relative grow">
                 <h3 className="font-medium text-dark dark:text-white">
                   {chat.name}
                 </h3>
@@ -46,7 +46,7 @@ export async function ChatsCard() {
                 <div className="flex flex-wrap items-center gap-2">
                   <span
                     className={cn(
-                      "truncate text-sm font-medium dark:text-dark-5 xl:max-w-[8rem]",
+                      "truncate text-sm font-medium dark:text-dark-5 xl:max-w-32",
                       chat.unreadCount && "text-dark-4 dark:text-dark-6",
                     )}
                   >

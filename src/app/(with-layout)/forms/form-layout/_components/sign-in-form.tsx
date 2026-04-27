@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export function SignInForm() {
   return (
-    <ShowcaseSection title="Sign In Form" className="!p-6.5">
+    <ShowcaseSection title="Sign In Form" className="p-6.5!">
       <form action="#">
         <InputGroup
           label="Email"

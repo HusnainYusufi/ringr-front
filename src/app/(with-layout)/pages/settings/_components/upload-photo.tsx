@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function UploadPhotoForm() {
   return (
-    <ShowcaseSection title="Your Photo" className="!p-7">
+    <ShowcaseSection title="Your Photo" className="p-7!">
       <form>
         <div className="mb-4 flex items-center gap-3">
           <Image

@@ -55,7 +55,7 @@ export function Notification() {
       }}
     >
       <DropdownTrigger
-        className="grid size-12 place-items-center rounded-full border bg-gray-2 text-dark outline-none hover:text-primary focus-visible:border-primary focus-visible:text-primary dark:border-dark-4 dark:bg-dark-2 dark:text-white dark:hover:bg-dark-3 dark:focus-visible:border-primary"
+        className="grid size-12 cursor-pointer place-items-center rounded-full border bg-gray-2 text-dark outline-none hover:text-primary focus-visible:border-primary focus-visible:text-primary dark:border-dark-4 dark:bg-dark-2 dark:text-white dark:hover:bg-dark-3 dark:focus-visible:border-primary"
         aria-label="View Notifications"
       >
         <span className="relative">
@@ -64,7 +64,7 @@ export function Notification() {
           {isDotVisible && (
             <span
               className={cn(
-                "absolute right-0 top-0 z-1 size-2 rounded-full bg-red-light ring-2 ring-gray-2 dark:ring-dark-3",
+                "absolute top-0 right-0 z-1 size-2 rounded-full bg-red-light ring-2 ring-gray-2 dark:ring-dark-3",
               )}
             >
               <span className="absolute inset-0 -z-1 animate-ping rounded-full bg-red-light opacity-75" />
@@ -75,18 +75,18 @@ export function Notification() {
 
       <DropdownContent
         align={isMobile ? "end" : "center"}
-        className="border border-stroke bg-white px-3.5 py-3 shadow-md dark:border-dark-3 dark:bg-gray-dark min-[350px]:min-w-[20rem]"
+        className="border border-stroke bg-white px-3.5 py-3 shadow-md min-[350px]:min-w-[20rem] dark:border-dark-3 dark:bg-gray-dark"
       >
         <div className="mb-1 flex items-center justify-between px-2 py-1.5">
           <span className="text-lg font-medium text-dark dark:text-white">
             Notifications
           </span>
-          <span className="rounded-md bg-primary px-[9px] py-0.5 text-xs font-medium text-white">
+          <span className="rounded-md bg-primary px-2.25 py-0.5 text-xs font-medium text-white">
             5 new
           </span>
         </div>
 
-        <ul className="mb-3 max-h-[23rem] space-y-1.5 overflow-y-auto">
+        <ul className="mb-3 max-h-92 space-y-1.5 overflow-y-auto">
           {notificationList.map((item, index) => (
             <li key={index} role="menuitem">
               <Link
@@ -119,7 +119,7 @@ export function Notification() {
         <Link
           href="#"
           onClick={() => setIsOpen(false)}
-          className="block rounded-lg border border-primary p-2 text-center text-sm font-medium tracking-wide text-primary outline-none transition-colors hover:bg-blue-light-5 focus:bg-blue-light-5 focus:text-primary focus-visible:border-primary dark:border-dark-3 dark:text-dark-6 dark:hover:border-dark-5 dark:hover:bg-dark-3 dark:hover:text-dark-7 dark:focus-visible:border-dark-5 dark:focus-visible:bg-dark-3 dark:focus-visible:text-dark-7"
+          className="block rounded-lg border border-primary p-2 text-center text-sm font-medium tracking-wide text-primary transition-colors outline-none hover:bg-blue-light-5 focus:bg-blue-light-5 focus:text-primary focus-visible:border-primary dark:border-dark-3 dark:text-dark-6 dark:hover:border-dark-5 dark:hover:bg-dark-3 dark:hover:text-dark-7 dark:focus-visible:border-dark-5 dark:focus-visible:bg-dark-3 dark:focus-visible:text-dark-7"
         >
           See all notifications
         </Link>

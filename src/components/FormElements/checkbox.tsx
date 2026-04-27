@@ -28,7 +28,7 @@ export function Checkbox({
       <label
         htmlFor={id}
         className={cn(
-          "flex cursor-pointer select-none items-center",
+          "flex cursor-pointer items-center select-none",
           !minimal && "text-body-sm font-medium",
         )}
       >
@@ -43,9 +43,9 @@ export function Checkbox({
 
           <div
             className={cn(
-              "mr-2 flex size-5 items-center justify-center rounded border border-dark-5 peer-checked:border-primary dark:border-dark-6 peer-checked:[&>*]:block",
+              "mr-2 flex size-5 items-center justify-center rounded border border-dark-5 outline-0 peer-checked:border-primary peer-checked:*:block focus-visible:border-primary focus-visible:ring-1 focus-visible:ring-primary dark:border-dark-6",
               withBg
-                ? "peer-checked:bg-primary [&>*]:text-white"
+                ? "*:text-white peer-checked:bg-primary"
                 : "peer-checked:bg-gray-2 dark:peer-checked:bg-transparent",
               minimal && "mr-3 border-stroke dark:border-dark-3",
               radius === "md" && "rounded-md",

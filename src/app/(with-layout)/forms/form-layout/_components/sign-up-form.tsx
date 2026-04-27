@@ -3,7 +3,7 @@ import { ShowcaseSection } from "@/components/Layouts/showcase-section";
 
 export function SignUpForm() {
   return (
-    <ShowcaseSection title="Sign Up Form" className="!p-6.5">
+    <ShowcaseSection title="Sign Up Form" className="p-6.5!">
       <form action="#">
         <InputGroup
           label="Name"

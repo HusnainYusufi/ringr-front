@@ -18,9 +18,9 @@ export function TopChannelsSkeleton() {
       <Table>
         <TableHeader>
           <TableRow className="border-none uppercase [&>th]:text-center">
-            <TableHead className="!text-left">Source</TableHead>
+            <TableHead className="text-left!">Source</TableHead>
             <TableHead>Visitors</TableHead>
-            <TableHead className="!text-right">Revenues</TableHead>
+            <TableHead className="text-right!">Revenues</TableHead>
             <TableHead>Sales</TableHead>
             <TableHead>Conversion</TableHead>
           </TableRow>
