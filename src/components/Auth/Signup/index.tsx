@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import GoogleSigninButton from "../GoogleSigninButton";
 import SignupWithPassword from "../SignupWithPassword";
 
 export default function Signup() {
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <GoogleSigninButton text="Sign up" />
 
       <div className="my-6 flex items-center justify-center">
@@ -27,6 +28,6 @@ export default function Signup() {
           </Link>
         </p>
       </div>
-    </>
+    </Suspense>
   );
 }

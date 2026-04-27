@@ -1,9 +1,10 @@
 "use client";
 import { EmailIcon, PasswordIcon } from "@/assets/icons";
 import { signIn } from "@/lib/auth/auth-client";
-import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "sonner";
 import InputGroup from "../FormElements/InputGroup";
 import { Checkbox } from "../FormElements/checkbox";
 
@@ -32,13 +33,18 @@ export default function SigninWithPassword() {
     setLoading(true);
     try {
       const callbackURL = searchParams.get("callbackUrl") || "/";
-      await signIn.email({
+      const result = await signIn.email({
         email: data.email,
         password: data.password,
         callbackURL,
       });
+
+      if (result.error?.status) {
+        return toast.error(`Error: ${result.error.message}`);
+      }
+
+      toast.success("Sign in successful");
       router.push(callbackURL);
-      router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign in failed");
     } finally {

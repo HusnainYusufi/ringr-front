@@ -4,6 +4,7 @@ import { EmailIcon, PasswordIcon } from "@/assets/icons";
 import { signUp } from "@/lib/auth/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { toast } from "sonner";
 import InputGroup from "../FormElements/InputGroup";
 
 export default function SignupWithPassword() {
@@ -31,14 +32,20 @@ export default function SignupWithPassword() {
 
     try {
       const callbackURL = searchParams.get("callbackUrl") || "/";
-      await signUp.email({
+
+      const result = await signUp.email({
         name: data.name,
         email: data.email,
         password: data.password,
         callbackURL,
       });
+
+      if (result.error?.status) {
+        return toast.error(`Error: ${result.error.message}`);
+      }
+
+      toast.success("Sign up successful");
       router.push(callbackURL);
-      router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign up failed");
     } finally {
