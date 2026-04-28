@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "auth:generate": "auth@latest generate --output src/lib/db/schemas"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.1",
@@ -15,6 +20,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
+    "drizzle-orm": "^0.45.2",
     "flatpickr": "^4.6.13",
     "jsvectormap": "^1.6.0",
     "next": "^16.1.6",
@@ -34,6 +40,7 @@
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
     "autoprefixer": "^10.4.20",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "postcss": "^8",

@@ -1,4 +1,6 @@
 import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { dbConfig } from "./modules/db";
 // import { dbConfig } from "./modules/db";
 // import { authorizationPlugins } from "./modules/authorization";
 
@@ -22,12 +24,14 @@ export const auth = betterAuth({
     },
   },
 
-  // database: dbConfig,
+  database: drizzleAdapter(dbConfig, {
+    provider: "pg",
+  }),
 
   // plugins: [...authorizationPlugins],
 
   session: {
-    expiresIn: 60 * 60 * 24 * 7,
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
     updateAge: 60 * 60 * 24,
   },
 
