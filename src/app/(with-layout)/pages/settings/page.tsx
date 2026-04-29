@@ -9,16 +9,12 @@ export const metadata: Metadata = {
   title: "Settings Page",
 };
 
-type SettingsUser = {
-  image?: string | null;
-};
-
 export default async function SettingsPage() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  const user = session?.user as SettingsUser;
+  const user = session?.user;
 
   return (
     <div className="mx-auto w-full max-w-270">
@@ -26,7 +22,12 @@ export default async function SettingsPage() {
 
       <div className="grid grid-cols-5 gap-8">
         <div className="col-span-5 xl:col-span-3">
-          <PersonalInfoForm />
+          <PersonalInfoForm
+            name={user?.name!}
+            email={user?.email!}
+            bio={user?.bio}
+            phoneNumber={user?.phoneNumber?.toString()}
+          />
         </div>
         <div className="col-span-5 xl:col-span-2">
           <UploadPhotoForm initialImage={user?.image ?? null} />
