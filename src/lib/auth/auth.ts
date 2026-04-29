@@ -1,8 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../db";
-// import { dbConfig } from "./modules/db";
-// import { authorizationPlugins } from "./modules/authorization";
 
 if (!process.env.BETTER_AUTH_SECRET) {
   throw new Error("BETTER_AUTH_SECRET is not set.");
@@ -10,6 +8,17 @@ if (!process.env.BETTER_AUTH_SECRET) {
 
 export const auth = betterAuth({
   appName: "NextAdmin",
+
+  user: {
+    additionalFields: {
+      phoneNumber: {
+        type: "number",
+      },
+      bio: {
+        type: "string",
+      },
+    },
+  },
 
   emailAndPassword: {
     enabled: true,

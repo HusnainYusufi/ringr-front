@@ -39,6 +39,7 @@ export default function SigninWithPassword() {
         {
           email: data.email,
           password: data.password,
+          rememberMe: data.remember,
           callbackURL,
         },
         {

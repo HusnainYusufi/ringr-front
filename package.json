@@ -11,7 +11,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "auth:generate": "auth@latest generate --output src/lib/db/schemas"
+    "auth:generate": "npx @better-auth/cli generate --config ./src/lib/auth/auth.ts --output src/lib/db/schemas/new-auth-schema.ts --yes"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.1",
