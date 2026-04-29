@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { dbConfig } from "./modules/db";
+import { db } from "../db";
 // import { dbConfig } from "./modules/db";
 // import { authorizationPlugins } from "./modules/authorization";
 
@@ -24,7 +24,7 @@ export const auth = betterAuth({
     },
   },
 
-  database: drizzleAdapter(dbConfig, {
+  database: drizzleAdapter(db, {
     provider: "pg",
   }),
 

@@ -33,19 +33,24 @@ export default function SignupWithPassword() {
     try {
       const callbackURL = searchParams.get("callbackUrl") || "/";
 
-      const result = await signUp.email({
-        name: data.name,
-        email: data.email,
-        password: data.password,
-        callbackURL,
-      });
-
-      if (result.error?.status) {
-        return toast.error(`Error: ${result.error.message}`);
-      }
-
-      toast.success("Sign up successful");
-      router.push(callbackURL);
+      await signUp.email(
+        {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          callbackURL,
+        },
+        {
+          onError: (err) => {
+            toast.error(`Error: ${err.error?.message}`);
+            setError(err.error?.message);
+          },
+          onSuccess: () => {
+            router.push(callbackURL);
+            toast.success("Sign up successful");
+          },
+        },
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign up failed");
     } finally {
@@ -58,7 +63,7 @@ export default function SignupWithPassword() {
       <InputGroup
         type="text"
         label="Name"
-        className="mb-4 [&_input]:py-[15px]"
+        className="mb-4 [&_input]:py-3.75"
         placeholder="Enter your name"
         name="name"
         handleChange={handleChange}
@@ -68,7 +73,7 @@ export default function SignupWithPassword() {
       <InputGroup
         type="email"
         label="Email"
-        className="mb-4 [&_input]:py-[15px]"
+        className="mb-4 [&_input]:py-3.75"
         placeholder="Enter your email"
         name="email"
         handleChange={handleChange}
@@ -79,7 +84,7 @@ export default function SignupWithPassword() {
       <InputGroup
         type="password"
         label="Password"
-        className="mb-5 [&_input]:py-[15px]"
+        className="mb-5 [&_input]:py-3.75"
         placeholder="Create a password"
         name="password"
         handleChange={handleChange}
@@ -91,7 +96,7 @@ export default function SignupWithPassword() {
         <button
           type="submit"
           disabled={loading}
-          className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary p-4 font-medium text-white transition hover:bg-opacity-90 disabled:cursor-not-allowed disabled:opacity-70"
+          className="hover:bg-opacity-90 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary p-4 font-medium text-white transition disabled:cursor-not-allowed disabled:opacity-70"
         >
           Sign Up
           {loading && (

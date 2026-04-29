@@ -11,27 +11,33 @@ const AUTH_ONLY_PATHS = ["/auth/sign-in", "/auth/sign-up"];
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
+  try {
+    const session = await auth.api.getSession({
+      headers: request.headers,
+    });
 
-  const isAuthOnly = AUTH_ONLY_PATHS.some((path) => pathname.startsWith(path));
+    const isAuthOnly = AUTH_ONLY_PATHS.some((path) =>
+      pathname.startsWith(path),
+    );
 
-  if (!session?.session && !isAuthOnly) {
-    const url = request.nextUrl.clone();
-    url.searchParams.set("callbackUrl", pathname);
-    url.pathname = "/auth/sign-in";
-    return NextResponse.redirect(url);
-  }
+    if (!session?.session && !isAuthOnly) {
+      const url = request.nextUrl.clone();
+      url.searchParams.set("callbackUrl", pathname);
+      url.pathname = "/auth/sign-in";
+      return NextResponse.redirect(url);
+    }
 
-  // const sessionRole = (session?.user as { role?: string } | undefined)?.role;
+    // const sessionRole = (session?.user as { role?: string } | undefined)?.role;
 
-  // if (roleProtectedRoute && sessionRole !== roleProtectedRoute.requiredRole) {
-  //   return NextResponse.redirect(new URL("/", request.url));
-  // }
+    // if (roleProtectedRoute && sessionRole !== roleProtectedRoute.requiredRole) {
+    //   return NextResponse.redirect(new URL("/", request.url));
+    // }
 
-  if (isAuthOnly && session?.session) {
-    return NextResponse.redirect(new URL("/", request.url));
+    if (isAuthOnly && session?.session) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+  } catch (error) {
+    console.log(error);
   }
 
   return NextResponse.next();
