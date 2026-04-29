@@ -31,20 +31,27 @@ export default function SigninWithPassword() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const callbackURL = searchParams.get("callbackUrl") || "/";
-      const result = await signIn.email({
-        email: data.email,
-        password: data.password,
-        callbackURL,
-      });
 
-      if (result.error?.status) {
-        return toast.error(`Error: ${result.error.message}`);
-      }
-
-      toast.success("Sign in successful");
-      router.push(callbackURL);
+      await signIn.email(
+        {
+          email: data.email,
+          password: data.password,
+          callbackURL,
+        },
+        {
+          onError: (err) => {
+            toast.error(`Error: ${err.error?.message}`);
+            setError(err.error?.message);
+          },
+          onSuccess: () => {
+            toast.success("Sign in successful");
+            router.push(callbackURL);
+          },
+        },
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign in failed");
     } finally {
