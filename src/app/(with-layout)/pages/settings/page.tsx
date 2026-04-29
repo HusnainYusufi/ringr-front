@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function SettingsPage() {
   return (
-    <div className="mx-auto w-full max-w-[1080px]">
+    <div className="mx-auto w-full max-w-270">
       <Breadcrumb pageName="Settings" />
 
       <div className="grid grid-cols-5 gap-8">
@@ -22,5 +22,4 @@ export default function SettingsPage() {
       </div>
     </div>
   );
-};
-
+}

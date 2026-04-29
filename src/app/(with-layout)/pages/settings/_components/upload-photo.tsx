@@ -61,13 +61,13 @@ export function UploadPhotoForm() {
 
         <div className="flex justify-end gap-3">
           <button
-            className="flex justify-center rounded-lg border border-stroke px-6 py-[7px] font-medium text-dark hover:shadow-1 dark:border-dark-3 dark:text-white"
+            className="flex justify-center rounded-lg border border-stroke px-6 py-1.75 font-medium text-dark hover:shadow-1 dark:border-dark-3 dark:text-white"
             type="button"
           >
             Cancel
           </button>
           <button
-            className="flex items-center justify-center rounded-lg bg-primary px-6 py-[7px] font-medium text-gray-2 hover:bg-opacity-90"
+            className="hover:bg-opacity-90 flex items-center justify-center rounded-lg bg-primary px-6 py-1.75 font-medium text-gray-2"
             type="submit"
           >
             Save

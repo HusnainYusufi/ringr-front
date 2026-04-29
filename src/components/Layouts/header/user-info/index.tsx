@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
 
 export function UserInfo() {
@@ -26,6 +27,10 @@ export function UserInfo() {
       fetchOptions: {
         onSuccess: () => {
           router.push("/auth/sign-in");
+          toast.success("Logged out successfully");
+        },
+        onError: () => {
+          toast.error("Failed to log out");
         },
       },
     });
@@ -37,7 +42,7 @@ export function UserInfo() {
         <span className="inline-block size-12 animate-pulse rounded-full bg-gray-200" />
 
         <div className="relative h-7 w-fit">
-          <span className="flex h-7 w-30 animate-pulse items-center justify-end rounded-full bg-gray-200 pr-2"></span>
+          <span className="flex h-7 w-30 animate-pulse items-center justify-end rounded-full bg-gray-200 pr-2" />
           <ChevronUpIcon
             aria-hidden
             className="absolute top-1/2 right-2 -translate-y-1/2 rotate-180 text-gray-400/60"
@@ -63,7 +68,7 @@ export function UserInfo() {
           {user?.img ? (
             <Image
               src={user.img}
-              className="size-12 rounded-full"
+              className="size-12 overflow-hidden rounded-full object-cover"
               alt={`Avatar of ${user.name}`}
               role="presentation"
               width={200}
@@ -97,11 +102,11 @@ export function UserInfo() {
           {user?.img ? (
             <Image
               src={user.img}
-              className="size-12 rounded-full"
+              className="size-12 shrink-0 overflow-hidden rounded-full object-cover object-center"
               alt={`Avatar of ${user.name}`}
               role="presentation"
-              width={200}
-              height={200}
+              width={48}
+              height={48}
             />
           ) : (
             <UserAvatar />
@@ -148,7 +153,7 @@ export function UserInfo() {
 
         <div className="p-2 text-base text-[#4B5563] dark:text-dark-6">
           <button
-            className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2.25 ring-primary outline-0 hover:bg-gray-2 hover:text-dark focus-visible:ring-1 dark:hover:bg-dark-3 dark:hover:text-white"
+            className="flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-2.5 py-2.25 ring-primary outline-0 hover:bg-gray-2 hover:text-dark focus-visible:ring-1 dark:hover:bg-dark-3 dark:hover:text-white"
             onClick={handleLogout}
           >
             <LogOutIcon />
