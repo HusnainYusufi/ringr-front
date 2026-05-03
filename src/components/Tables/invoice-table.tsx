@@ -48,11 +48,11 @@ export async function InvoiceTable() {
                   className={cn(
                     "max-w-fit rounded-full px-3.5 py-1 text-sm font-medium",
                     {
-                      "bg-[#219653]/[0.08] text-[#219653]":
+                      "bg-[#219653]/8 text-[#219653]":
                         item.status === "Paid",
-                      "bg-[#D34053]/[0.08] text-[#D34053]":
+                      "bg-[#D34053]/8 text-[#D34053]":
                         item.status === "Unpaid",
-                      "bg-[#FFA70B]/[0.08] text-[#FFA70B]":
+                      "bg-[#FFA70B]/8 text-[#FFA70B]":
                         item.status === "Pending",
                     },
                   )}

@@ -40,7 +40,7 @@ const CalendarBox = () => {
             <tr className="grid grid-cols-7">
               <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray-2 dark:border-dark-3 dark:hover:bg-dark-2 md:h-25 md:p-6 xl:h-31">
                 <span className="font-medium text-dark dark:text-white">1</span>
-                <div className="group h-16 w-full flex-grow cursor-pointer py-1 md:h-30">
+                <div className="group h-16 w-full grow cursor-pointer py-1 md:h-30">
                   <span className="group-hover:text-primary md:hidden">
                     More
                   </span>
@@ -167,7 +167,7 @@ const CalendarBox = () => {
                 <span className="font-medium text-dark dark:text-white">
                   25
                 </span>
-                <div className="group h-16 w-full flex-grow cursor-pointer py-1 md:h-30">
+                <div className="group h-16 w-full grow cursor-pointer py-1 md:h-30">
                   <span className="group-hover:text-primary md:hidden">
                     More
                   </span>

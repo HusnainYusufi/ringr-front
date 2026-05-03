@@ -2,49 +2,46 @@
 
 **NextAdmin** is a Free, open-source Next.js admin dashboard toolkit featuring 200+ UI components and templates that come with pre-built elements, components, pages, high-quality design, integrations, and much more to help you create powerful admin dashboards with ease.
 
-
 [![nextjs admin template](https://cdn.pimjo.com/nextadmin-2.png)](https://nextadmin.co/)
-
 
 **NextAdmin** provides you with a diverse set of dashboard UI components, elements, examples and pages necessary for creating top-notch admin panels or dashboards with **powerful** features and integrations. Whether you are working on a complex web application or a basic website, **NextAdmin** has got you covered.
 
 ### [✨ Visit Website](https://nextadmin.co/)
+
 ### [🚀 Live Demo](https://demo.nextadmin.co/)
+
 ### [📖 Docs](https://docs.nextadmin.co/)
 
 By leveraging the latest features of **Next.js 14** and key functionalities like **server-side rendering (SSR)**, **static site generation (SSG)**, and seamless **API route integration**, **NextAdmin** ensures optimal performance. With the added benefits of **React 18 advancements** and **TypeScript** reliability, **NextAdmin** is the ultimate choice to kickstart your **Next.js** project efficiently.
 
 ## Installation
 
-1. Download/fork/clone the repo and Once you're in the correct directory, it's time to install all the necessary dependencies. You can do this by typing the following command:
+1. Download/fork/clone the repo and Once you're in the correct directory, it's time to install all the necessary dependencies. You can do this by your preferred package manager. If you're using **npm**, the command is:
 
 ```
 npm install
 ```
-If you're using **Yarn** as your package manager, the command will be:
+
+2. Now copy and paste the contents of `.env.example` file to `.env.local` and add your environment variables and fill in the credentials.
 
 ```
-yarn install
+cp .env.example .env.local
 ```
 
-2. Okay, you're almost there. Now all you need to do is start the development server. If you're using **npm**, the command is:
+3. Okay, you're almost there. Now all you need to do is start the development server. If you're using **npm**, the command is:
 
 ```
 npm run dev
-```
-And if you're using **Yarn**, it's:
-
-```
-yarn dev
 ```
 
 And voila! You're now ready to start developing. **Happy coding**!
 
 ## Highlighted Features
+
 **200+ Next.js Dashboard Ul Components and Templates** - includes a variety of prebuilt **Ul elements, components, pages, and examples** crafted with a high-quality design.
 Additionally, features seamless **essential integrations and extensive functionalities**.
 
-- A library of over **200** professional dashboard UI components and elements.
+- A library of over **200+** professional dashboard UI components and elements.
 - Five distinctive dashboard variations, catering to diverse use-cases.
 - A comprehensive set of essential dashboard and admin pages.
 - More than **45** **Next.js** files, ready for use.
@@ -63,14 +60,25 @@ All these features and more make **NextAdmin** a robust, well-rounded solution f
 
 ## Update Logs
 
+### Version 1.2.4 - [April 30, 2026]
+
+- Update Tailwind CSS to v4 and update dependencies.
+- Added new authentication pages.
+- Implemented authentication with BetterAuth and Prisma.
+- Configured Role-Based Access Control (RBAC).
+- Added user profile data mutations and queries in profile and settings pages.
+
 ### Version 1.2.3 - [Mar 16, 2026]
+
 - Update Next.js to ^16.1.6 and configure image qualities
 
 ### Version 1.2.2 - [December 01, 2025]
+
 - Updated to Next.js 16
 - Updated dependencies.
 
 ### Version 1.2.1 - [Mar 20, 2025]
+
 - Fix Peer dependency issues and NextConfig warning.
 - Updated apexcharts and react-apexhcarts to the latest version.
 
@@ -84,9 +92,11 @@ All these features and more make **NextAdmin** a robust, well-rounded solution f
 - Semantic markups, better separation of concerns and more.
 
 ### Version 1.1.0
+
 - Updated Dependencies
 - Removed Unused Integrations
 - Optimized App
 
 ### Version 1.0
+
 - Initial Release - [May 13, 2024]
