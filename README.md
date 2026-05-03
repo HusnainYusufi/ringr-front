@@ -60,7 +60,7 @@ All these features and more make **NextAdmin** a robust, well-rounded solution f
 
 ## Update Logs
 
-### Version 1.2.4 - [April 30, 2026]
+### Version 1.3.0 - [April 30, 2026]
 
 - Update Tailwind CSS to v4 and update dependencies.
 - Added new authentication pages.
