@@ -13,17 +13,17 @@ import { authClient } from "@/lib/auth/auth-client";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
 
-export interface IUserInfo {
+export interface UserInfo {
   name: string;
   phoneNumber?: string;
   email: string;
   bio?: string;
 }
 
-export function PersonalInfoForm(personalInfo: IUserInfo) {
+export function PersonalInfoForm(personalInfo: UserInfo) {
   const { name, phoneNumber = "", email, bio = "" } = personalInfo;
 
-  const [formData, setFormData] = useState<IUserInfo>({
+  const [formData, setFormData] = useState<UserInfo>({
     name: name,
     phoneNumber: phoneNumber,
     email: email,
