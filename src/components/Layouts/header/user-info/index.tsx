@@ -18,22 +18,21 @@ import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
 export function UserInfo() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-
   const session = useSession();
 
   async function handleLogout() {
     setIsOpen(false);
-    await signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/auth/sign-in");
-          toast.success("Logged out successfully");
-        },
-        onError: () => {
-          toast.error("Failed to log out");
-        },
-      },
-    });
+    const loadingId = toast.loading("Logging out...");
+
+    try {
+      await signOut();
+      router.push("/auth/sign-in");
+      toast.success("Logged out successfully");
+    } catch {
+      toast.error("Failed to log out");
+    } finally {
+      toast.dismiss(loadingId);
+    }
   }
 
   if (session.isPending) {

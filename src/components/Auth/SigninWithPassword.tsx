@@ -1,4 +1,5 @@
 "use client";
+
 import { EmailIcon, PasswordIcon } from "@/assets/icons";
 import { signIn } from "@/lib/auth/auth-client";
 import Link from "next/link";
@@ -35,25 +36,24 @@ export default function SigninWithPassword() {
     try {
       const callbackURL = searchParams.get("callbackUrl") || "/";
 
-      await signIn.email(
-        {
-          email: data.email,
-          password: data.password,
-          rememberMe: data.remember,
-        },
-        {
-          onError: (err) => {
-            toast.error(`Error: ${err.error?.message}`);
-            setError(err.error?.message);
-          },
-          onSuccess: () => {
-            toast.success("Sign in successful");
-            router.push(callbackURL);
-          },
-        },
-      );
-    } catch (err) {
+      const result = await signIn.email({
+        email: data.email,
+        password: data.password,
+        rememberMe: data.remember,
+      });
+
+      if (!result.data) {
+        throw new Error(result.error?.message || "Failed to sign in");
+      }
+
+      router.push(callbackURL);
+      router.refresh();
+      toast.success("Sign in successful");
+    } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Sign in failed");
+      toast.error(
+        `Error: ${err instanceof Error ? err.message : (err as { error?: { message?: string } }).error?.message}`,
+      );
     } finally {
       setLoading(false);
     }

@@ -1,16 +1,16 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
   id            String    @id
   name          String
-  email         String    @unique
+  email         String
   emailVerified Boolean   @default(false) @map("email_verified")
   image         String?
   createdAt     DateTime  @default(now()) @map("created_at")
@@ -20,12 +20,13 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  @@unique([email])
   @@map("user")
 }
 
 model Session {
   id        String   @id
-  expiresAt  DateTime @map("expires_at")
+  expiresAt DateTime @map("expires_at")
   token     String   @unique
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -39,20 +40,20 @@ model Session {
 }
 
 model Account {
-  id                    String   @id
-  accountId             String   @map("account_id")
-  providerId            String   @map("provider_id")
-  userId                String   @map("user_id")
-  accessToken           String?  @map("access_token")
-  refreshToken          String?  @map("refresh_token")
-  idToken               String?  @map("id_token")
+  id                    String    @id
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  userId                String    @map("user_id")
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @map("access_token")
+  refreshToken          String?   @map("refresh_token")
+  idToken               String?   @map("id_token")
   accessTokenExpiresAt  DateTime? @map("access_token_expires_at")
   refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
   scope                 String?
   password              String?
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @updatedAt @map("updated_at")
-  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
 
   @@index([userId], map: "account_userId_idx")
   @@map("account")

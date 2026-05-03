@@ -8,6 +8,7 @@ if (!process.env.BETTER_AUTH_SECRET) {
 
 export const auth = betterAuth({
   appName: "NextAdmin",
+  baseURL: process.env.BETTER_AUTH_URL!,
 
   user: {
     additionalFields: {
@@ -42,9 +43,18 @@ export const auth = betterAuth({
   // plugins: [...authorizationPlugins],
 
   session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 60 * 5,
+      strategy: "compact",
+    },
+    deferSessionRefresh: true,
     expiresIn: 60 * 60 * 24 * 7, // 7 days
     updateAge: 60 * 60 * 24,
   },
 
-  trustedOrigins: [process.env.NEXT_PUBLIC_APP_URL!],
+  trustedOrigins: [
+    process.env.NEXT_PUBLIC_APP_URL!,
+    process.env.BETTER_AUTH_URL!,
+  ],
 });

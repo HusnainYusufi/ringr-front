@@ -33,26 +33,19 @@ export default function SignupWithPassword() {
     try {
       const callbackURL = searchParams.get("callbackUrl") || "/";
 
-      await signUp.email(
-        {
-          name: data.name,
-          email: data.email,
-          password: data.password,
-          callbackURL,
-        },
-        {
-          onError: (err) => {
-            toast.error(`Error: ${err.error?.message}`);
-            setError(err.error?.message);
-          },
-          onSuccess: () => {
-            router.push(callbackURL);
-            toast.success("Sign up successful");
-          },
-        },
-      );
+      await signUp.email({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        callbackURL,
+      });
+      router.push(callbackURL);
+      toast.success("Sign up successful");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Sign up failed");
+      toast.error(
+        `Error: ${err instanceof Error ? err.message : (err as { error?: { message?: string } }).error?.message}`,
+      );
     } finally {
       setLoading(false);
     }
