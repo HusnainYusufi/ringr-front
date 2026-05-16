@@ -12,7 +12,7 @@
 
 ### [📖 Docs](https://docs.nextadmin.co/)
 
-By leveraging the latest features of **Next.js 14** and key functionalities like **server-side rendering (SSR)**, **static site generation (SSG)**, and seamless **API route integration**, **NextAdmin** ensures optimal performance. With the added benefits of **React 18 advancements** and **TypeScript** reliability, **NextAdmin** is the ultimate choice to kickstart your **Next.js** project efficiently.
+By leveraging the latest features of latest **Next.js** and key functionalities like **server-side rendering (SSR)**, **static site generation (SSG)**, and seamless **API route integration**, **NextAdmin** ensures optimal performance. With the added benefits of **React 18 advancements** and **TypeScript** reliability, **NextAdmin** is the ultimate choice to kickstart your **Next.js** project efficiently.
 
 ## Installation
 
@@ -64,6 +64,7 @@ All these features and more make **NextAdmin** a robust, well-rounded solution f
 
 - Update Tailwind CSS to v4 and update dependencies.
 - Added new authentication pages.
+- Updated to latest Next.js
 - Implemented authentication with BetterAuth and Prisma.
 - Configured Role-Based Access Control (RBAC).
 - Added user profile data mutations and queries in profile and settings pages.
