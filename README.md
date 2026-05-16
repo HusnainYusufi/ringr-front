@@ -4,59 +4,57 @@
 
 [![nextjs admin template](https://cdn.pimjo.com/nextadmin-2.png)](https://nextadmin.co/)
 
-**NextAdmin** provides you with a diverse set of dashboard UI components, elements, examples and pages necessary for creating top-notch admin panels or dashboards with **powerful** features and integrations. Whether you are working on a complex web application or a basic website, **NextAdmin** has got you covered.
+---
+## Useful Links
+- [Website](https://nextadmin.co/)
+- [Live Demo](https://demo.nextadmin.co/)
+- [Docs](https://nextadmin.co/docs)
+- [Components](https://nextadmin.co/components)
 
-### [✨ Visit Website](https://nextadmin.co/)
+## Quick start
 
-### [🚀 Live Demo](https://demo.nextadmin.co/)
+You'll need Node.js installed. Then:
 
-### [📖 Docs](https://docs.nextadmin.co/)
-
-By leveraging the latest features of latest **Next.js** and key functionalities like **server-side rendering (SSR)**, **static site generation (SSG)**, and seamless **API route integration**, **NextAdmin** ensures optimal performance. With the added benefits of **React 18 advancements** and **TypeScript** reliability, **NextAdmin** is the ultimate choice to kickstart your **Next.js** project efficiently.
-
-## Installation
-
-1. Download/fork/clone the repo and Once you're in the correct directory, it's time to install all the necessary dependencies. You can do this by your preferred package manager. If you're using **npm**, the command is:
-
+```bash
+git clone https://github.com/NextAdminHQ/nextjs-admin-dashboard.git
+cd nextjs-admin-dashboard
 ```
+
+Install dependencies — pick your poison:
+
+```bash
 npm install
+# or: yarn / pnpm install / bun install
 ```
 
-2. Now copy and paste the contents of `.env.example` file to `.env.local` and add your environment variables and fill in the credentials.
+Copy the example env file and fill in your credentials:
 
-```
+```bash
 cp .env.example .env.local
 ```
 
-3. Okay, you're almost there. Now all you need to do is start the development server. If you're using **npm**, the command is:
+Then start the dev server:
 
-```
+```bash
 npm run dev
 ```
 
-And voila! You're now ready to start developing. **Happy coding**!
+Open [http://localhost:3000](http://localhost:3000) and you're good.
 
-## Highlighted Features
+## Deploying
 
-**200+ Next.js Dashboard Ul Components and Templates** - includes a variety of prebuilt **Ul elements, components, pages, and examples** crafted with a high-quality design.
-Additionally, features seamless **essential integrations and extensive functionalities**.
+Works out of the box on Vercel and Netlify.
 
-- A library of over **200+** professional dashboard UI components and elements.
-- Five distinctive dashboard variations, catering to diverse use-cases.
-- A comprehensive set of essential dashboard and admin pages.
-- More than **45** **Next.js** files, ready for use.
-- Styling facilitated by **Tailwind CSS** files.
-- A design that resonates premium quality and high aesthetics.
-- A handy UI kit with assets.
-- Over ten web apps complete with examples.
-- Support for both **dark mode** and **light mode**.
-- Essential integrations including - Authentication (**NextAuth**), Database (**Postgres** with **Prisma**), and Search (**Algolia**).
-- Detailed and user-friendly documentation.
-- Customizable plugins and add-ons.
-- **TypeScript** compatibility.
-- Plus, much more!
+## Docs & components
 
-All these features and more make **NextAdmin** a robust, well-rounded solution for all your dashboard development needs.
+Full docs at [nextadmin.co/docs](https://nextadmin.co/docs). Component-level docs (props, examples, code) live under [/docs/components](https://nextadmin.co/docs) — accordions, charts, tables, form layouts, maps, modals, and everything else.
+
+## Community
+
+- [Discord](https://pimjo.com/community)
+- [X / Twitter](https://twitter.com/PimjoHQ)
+- [GitHub](https://github.com/NextAdminHQ/)
+
 
 ## Update Logs
 
