@@ -30,7 +30,7 @@ function AcceptInviteForm() {
     setLoading(true);
     try {
       await acceptInvite(token, password, apiKey.trim() || undefined);
-      router.push("/portal");
+      router.push("/portal/setup");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to accept invite");
     } finally {
