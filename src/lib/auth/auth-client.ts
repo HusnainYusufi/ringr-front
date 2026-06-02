@@ -1,9 +1,7 @@
-import { inferAdditionalFields } from "better-auth/client/plugins";
-import { createAuthClient } from "better-auth/react";
-import { auth } from "./auth";
-
-export const authClient = createAuthClient({
-  plugins: [inferAdditionalFields<typeof auth>()],
-});
-
-export const { signIn, signOut, signUp, useSession, getSession } = authClient;
+// Better-Auth client removed — Ringr uses its own NestJS JWT backend.
+export const authClient = {};
+export const signIn = {};
+export const signOut = async () => {};
+export const signUp = {};
+export const useSession = () => ({ data: null, isPending: false });
+export const getSession = async () => null;

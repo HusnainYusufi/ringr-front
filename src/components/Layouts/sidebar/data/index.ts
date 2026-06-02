@@ -1,95 +1,92 @@
 import * as Icons from "../icons";
 
-export const NAV_DATA = [
+export const ADMIN_NAV_DATA = [
   {
-    label: "MAIN MENU",
+    label: "PLATFORM",
     items: [
       {
-        title: "Dashboard",
+        title: "Overview",
+        url: "/admin",
         icon: Icons.HomeIcon,
-        items: [
-          {
-            title: "eCommerce",
-            url: "/",
-          },
-        ],
-      },
-      {
-        title: "Calendar",
-        url: "/calendar",
-        icon: Icons.Calendar,
         items: [],
       },
       {
-        title: "Profile",
-        url: "/profile",
+        title: "Tenants",
+        url: "/admin/tenants",
+        icon: Icons.FourCircle,
+        items: [],
+      },
+      {
+        title: "Providers",
         icon: Icons.User,
-        items: [],
-      },
-      {
-        title: "Forms",
-        icon: Icons.Alphabet,
         items: [
-          {
-            title: "Form Elements",
-            url: "/forms/form-elements",
-          },
-          {
-            title: "Form Layout",
-            url: "/forms/form-layout",
-          },
-        ],
-      },
-      {
-        title: "Tables",
-        url: "/tables",
-        icon: Icons.Table,
-        items: [
-          {
-            title: "Tables",
-            url: "/tables",
-          },
-        ],
-      },
-      {
-        title: "Pages",
-        icon: Icons.Alphabet,
-        items: [
-          {
-            title: "Settings",
-            url: "/pages/settings",
-          },
+          { title: "All Providers", url: "/admin/providers" },
+          { title: "Onboard New", url: "/admin/providers/onboard" },
         ],
       },
     ],
   },
   {
-    label: "OTHERS",
+    label: "ACTIVITY",
     items: [
       {
-        title: "Charts",
-        icon: Icons.PieChart,
-        items: [
-          {
-            title: "Basic Chart",
-            url: "/charts/basic-chart",
-          },
-        ],
+        title: "Bookings",
+        url: "/admin/bookings",
+        icon: Icons.Table,
+        items: [],
       },
       {
-        title: "UI Elements",
-        icon: Icons.FourCircle,
-        items: [
-          {
-            title: "Alerts",
-            url: "/ui-elements/alerts",
-          },
-          {
-            title: "Buttons",
-            url: "/ui-elements/buttons",
-          },
-        ],
+        title: "Call Sessions",
+        url: "/admin/calls",
+        icon: Icons.PieChart,
+        items: [],
       },
     ],
   },
 ];
+
+export const PORTAL_NAV_DATA = [
+  {
+    label: "MY CLINIC",
+    items: [
+      {
+        title: "Dashboard",
+        url: "/portal",
+        icon: Icons.HomeIcon,
+        items: [],
+      },
+      {
+        title: "Profile",
+        url: "/portal/profile",
+        icon: Icons.User,
+        items: [],
+      },
+      {
+        title: "Opening Hours",
+        url: "/portal/schedule",
+        icon: Icons.Calendar,
+        items: [],
+      },
+    ],
+  },
+  {
+    label: "APPOINTMENTS",
+    items: [
+      {
+        title: "Slots",
+        url: "/portal/slots",
+        icon: Icons.Table,
+        items: [],
+      },
+      {
+        title: "Bookings",
+        url: "/portal/bookings",
+        icon: Icons.PieChart,
+        items: [],
+      },
+    ],
+  },
+];
+
+// Fallback — used before role is known
+export const NAV_DATA = ADMIN_NAV_DATA;

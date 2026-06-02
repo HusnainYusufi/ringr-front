@@ -1,63 +1,41 @@
-import { auth } from "@/lib/auth";
-// import type { AppRole } from "@/lib/auth/modules/authorization/permissions";
 import { NextRequest, NextResponse } from "next/server";
 
-const AUTH_ONLY_PATHS = ["/auth/sign-in", "/auth/sign-up"];
-const SESSION_COOKIE_NAME =
-  process.env.NODE_ENV === "development"
-    ? "better-auth.session_token"
-    : "__Secure-better-auth.session_token";
-// const ROLE_PROTECTED: { prefix: string; requiredRole: AppRole }[] = [
-//   { prefix: "/dashboard/settings", requiredRole: "admin" },
-//   { prefix: "/dashboard/users", requiredRole: "admin" },
-// ];
+const PUBLIC_PATHS = ["/auth/sign-in", "/auth/accept-invite"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const callbackUrl = `${pathname}${request.nextUrl.search}`;
-  const isAuthOnly = AUTH_ONLY_PATHS.some((path) => pathname.startsWith(path));
-  const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME)?.value;
 
-  if (!sessionCookie) {
-    if (!isAuthOnly) {
-      const url = request.nextUrl.clone();
-      url.searchParams.set("callbackUrl", callbackUrl);
-      url.pathname = "/auth/sign-in";
-      return NextResponse.redirect(url);
-    }
+  const isPublic = PUBLIC_PATHS.some((p) => pathname.startsWith(p));
+  const token = request.cookies.get("ringr_token")?.value;
+  const role = request.cookies.get("ringr_role")?.value;
 
-    return NextResponse.next();
+  if (!token) {
+    if (isPublic) return NextResponse.next();
+    const url = request.nextUrl.clone();
+    url.pathname = "/auth/sign-in";
+    url.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(url);
   }
 
-  try {
-    const session = await auth.api.getSession({
-      headers: request.headers,
-    });
+  if (isPublic) {
+    const dest = role === "SUPER_ADMIN" || role === "TENANT_ADMIN" ? "/admin" : "/portal";
+    return NextResponse.redirect(new URL(dest, request.url));
+  }
 
-    if (!session?.session && !isAuthOnly) {
-      const url = request.nextUrl.clone();
-      url.searchParams.set("callbackUrl", callbackUrl);
-      url.pathname = "/auth/sign-in";
-      return NextResponse.redirect(url);
-    }
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isPortalRoute = pathname.startsWith("/portal");
+  const isAdminRole = role === "SUPER_ADMIN" || role === "TENANT_ADMIN";
+  const isProviderRole = role === "PROVIDER_OWNER" || role === "PROVIDER_STAFF";
 
-    // const sessionRole = (session?.user as { role?: string } | undefined)?.role;
+  if (isAdminRoute && !isAdminRole) {
+    return NextResponse.redirect(new URL("/portal", request.url));
+  }
+  if (isPortalRoute && !isProviderRole) {
+    return NextResponse.redirect(new URL("/admin", request.url));
+  }
 
-    // if (roleProtectedRoute && sessionRole !== roleProtectedRoute.requiredRole) {
-    //   return NextResponse.redirect(new URL("/", request.url));
-    // }
-
-    if (isAuthOnly && session?.session) {
-      return NextResponse.redirect(new URL("/", request.url));
-    }
-  } catch (error) {
-    console.error(error);
-    if (!isAuthOnly) {
-      const url = request.nextUrl.clone();
-      url.searchParams.set("callbackUrl", callbackUrl);
-      url.pathname = "/auth/sign-in";
-      return NextResponse.redirect(url);
-    }
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL(isAdminRole ? "/admin" : "/portal", request.url));
   }
 
   return NextResponse.next();

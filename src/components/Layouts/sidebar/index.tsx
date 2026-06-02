@@ -5,15 +5,27 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { NAV_DATA } from "./data";
+import { ADMIN_NAV_DATA, PORTAL_NAV_DATA } from "./data";
 import { ArrowLeftIcon, ChevronUp } from "./icons";
 import { MenuItem } from "./menu-item";
 import { useSidebarContext } from "./sidebar-context";
+
+function getRoleFromCookie() {
+  if (typeof document === "undefined") return null;
+  const m = /(?:^|;\s*)ringr_role=([^;]+)/.exec(document.cookie);
+  return m?.[1] ?? null;
+}
 
 export function Sidebar() {
   const pathname = usePathname();
   const { setIsOpen, isOpen, isMobile, toggleSidebar } = useSidebarContext();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
+
+  const role = getRoleFromCookie();
+  const NAV_DATA =
+    role === "PROVIDER_OWNER" || role === "PROVIDER_STAFF"
+      ? PORTAL_NAV_DATA
+      : ADMIN_NAV_DATA;
 
   const toggleExpanded = (title: string) => {
     setExpandedItems((prev) => (prev.includes(title) ? [] : [title]));
