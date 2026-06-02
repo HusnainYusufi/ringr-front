@@ -1,6 +1,11 @@
+import type { ComponentType } from "react";
 import * as Icons from "../icons";
 
-export const ADMIN_NAV_DATA = [
+export interface NavSubItem { title: string; url: string; }
+export interface NavItem { title: string; icon: ComponentType<Record<string, unknown>>; url?: string; items: NavSubItem[]; }
+export interface NavSection { label: string; items: NavItem[]; }
+
+export const ADMIN_NAV_DATA: NavSection[] = [
   {
     label: "PLATFORM",
     items: [
@@ -11,24 +16,34 @@ export const ADMIN_NAV_DATA = [
         items: [],
       },
       {
+        title: "Clients",
+        url: "/admin/clients",
+        icon: Icons.User,
+        items: [],
+      },
+      {
         title: "Tenants",
         url: "/admin/tenants",
         icon: Icons.FourCircle,
         items: [],
       },
       {
-        title: "Providers",
-        icon: Icons.User,
-        items: [
-          { title: "All Providers", url: "/admin/providers" },
-          { title: "Onboard New", url: "/admin/providers/onboard" },
-        ],
+        title: "Invite Clinic",
+        url: "/admin/providers/onboard",
+        icon: Icons.Alphabet,
+        items: [],
       },
     ],
   },
   {
     label: "ACTIVITY",
     items: [
+      {
+        title: "Activity Log",
+        url: "/admin/activity",
+        icon: Icons.PieChart,
+        items: [],
+      },
       {
         title: "Bookings",
         url: "/admin/bookings",
@@ -38,14 +53,14 @@ export const ADMIN_NAV_DATA = [
       {
         title: "Call Sessions",
         url: "/admin/calls",
-        icon: Icons.PieChart,
+        icon: Icons.Calendar,
         items: [],
       },
     ],
   },
 ];
 
-export const PORTAL_NAV_DATA = [
+export const PORTAL_NAV_DATA: NavSection[] = [
   {
     label: "MY CLINIC",
     items: [
@@ -53,6 +68,12 @@ export const PORTAL_NAV_DATA = [
         title: "Dashboard",
         url: "/portal",
         icon: Icons.HomeIcon,
+        items: [],
+      },
+      {
+        title: "Setup Wizard",
+        url: "/portal/setup",
+        icon: Icons.Alphabet,
         items: [],
       },
       {
@@ -89,4 +110,4 @@ export const PORTAL_NAV_DATA = [
 ];
 
 // Fallback — used before role is known
-export const NAV_DATA = ADMIN_NAV_DATA;
+export const NAV_DATA: NavSection[] = ADMIN_NAV_DATA;
