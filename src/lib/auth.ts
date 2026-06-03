@@ -38,18 +38,43 @@ function persistSession(accessToken: string, apiKey?: string) {
   if (apiKey) localStorage.setItem("ringr_api_key", apiKey);
 }
 
-// ─── Admin login (SUPER_ADMIN) ────────────────────────────────────────────────
-export async function adminLogin(email: string, password: string) {
-  const res = await api.post<LoginResponse>("/admin/auth/login", { email, password }, { skipAuth: true } as any);
-  persistSession(res.data.accessToken);
-  return res.data.accessToken;
+// ─── Universal login — works for all roles, no API key needed ────────────────
+export async function universalLogin(email: string, password: string): Promise<{
+  accessToken: string;
+  role: UserRole;
+  isSetupComplete: boolean;
+}> {
+  // Try universal endpoint first
+  try {
+    const res = await api.post<{ data: { accessToken: string; role: UserRole; isSetupComplete: boolean } }>(
+      "/auth/login",
+      { email, password },
+    );
+    const { accessToken, role, isSetupComplete } = res.data;
+    persistSession(accessToken);
+    return { accessToken, role, isSetupComplete };
+  } catch {
+    // Fall back to admin-specific endpoint (SUPER_ADMIN)
+    const res = await api.post<{ data: { accessToken: string; role: UserRole } }>(
+      "/admin/auth/login",
+      { email, password },
+    );
+    const { accessToken, role } = res.data;
+    persistSession(accessToken);
+    return { accessToken, role, isSetupComplete: true };
+  }
 }
 
-// ─── Staff login (PROVIDER_OWNER / PROVIDER_STAFF) ───────────────────────────
-export async function staffLogin(email: string, password: string, apiKey: string) {
-  const res = await api.post<LoginResponse>("/auth/staff/login", { email, password }, { apiKey });
-  persistSession(res.data.accessToken, apiKey);
-  return res.data.accessToken;
+// ─── Admin login (kept for backwards compat) ──────────────────────────────────
+export async function adminLogin(email: string, password: string) {
+  const { accessToken } = await universalLogin(email, password);
+  return accessToken;
+}
+
+// ─── Staff login (kept for backwards compat) ──────────────────────────────────
+export async function staffLogin(email: string, password: string, _apiKey?: string) {
+  const { accessToken } = await universalLogin(email, password);
+  return accessToken;
 }
 
 // ─── Accept magic-link invite (first-time password set) ──────────────────────
