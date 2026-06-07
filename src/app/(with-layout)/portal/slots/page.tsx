@@ -28,8 +28,8 @@ export default function SlotsPage() {
   });
 
   useEffect(() => {
-    api.get<{ data: { provider: { id: string } } }>("/providers/me").then((r) => {
-      const id = r.data.provider.id;
+    api.get<{ data: { id: string } }>("/providers/me").then((r) => {
+      const id = r.data.id;
       setProviderId(id);
       return api.get<{ data: Slot[] }>(`/providers/${id}/slots?from=${today}`);
     }).then((r) => setSlots(r.data))

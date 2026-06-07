@@ -31,8 +31,8 @@ export default function PortalBookingsPage() {
     setLoading(true);
     try {
       const url = after ? `/bookings?cursor=${after}` : "/bookings";
-      const res = await api.get<{ data: { data: Booking[]; meta: { cursor: string | null; hasMore: boolean } } }>(url);
-      const { data, meta } = res.data;
+      const res = await api.get<{ data: Booking[]; meta: { cursor: string | null; hasMore: boolean } }>(url);
+      const { data, meta } = res;
       setBookings((prev) => (after ? [...prev, ...data] : data));
       setCursor(meta.cursor);
       setHasMore(meta.hasMore);
