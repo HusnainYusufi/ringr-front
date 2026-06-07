@@ -166,6 +166,12 @@ function SignInForm() {
             Platform admin?{" "}
             <span className="text-gray-500">Use your admin credentials above — no extra steps needed.</span>
           </p>
+          <p className="mt-3 text-center text-xs text-gray-400">
+            Want to see it in action?{" "}
+            <a href="/demo" className="text-primary hover:underline font-medium">
+              Try the live demo →
+            </a>
+          </p>
         </div>
       </div>
 

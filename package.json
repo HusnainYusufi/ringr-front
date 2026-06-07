@@ -31,6 +31,7 @@
     "react": "^19.2.0",
     "react-apexcharts": "^1.7.0",
     "react-dom": "^19.2.0",
+    "retell-client-js-sdk": "^2.0.8",
     "sonner": "^2.0.7",
     "zod": "^4.3.6"
   },
