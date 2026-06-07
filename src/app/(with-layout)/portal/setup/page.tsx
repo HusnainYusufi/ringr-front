@@ -55,8 +55,8 @@ export default function SetupWizardPage() {
     setError("");
     setLoading(true);
     try {
-      const res = await api.get<{ data: { provider: { id: string } } }>("/providers/me");
-      const id = res.data.provider.id;
+      const res = await api.get<{ data: { id: string } }>("/providers/me");
+      const id = res.data.id;
       setProviderId(id);
       await api.patch("/providers/me", {
         ...profile,
