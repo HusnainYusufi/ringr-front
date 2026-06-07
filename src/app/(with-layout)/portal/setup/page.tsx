@@ -117,7 +117,7 @@ export default function SetupWizardPage() {
         <h1 className="text-2xl font-bold text-dark dark:text-white">Set Up Your Clinic</h1>
         <p className="mt-1 text-sm text-gray-400">Complete these steps to go live and start receiving bookings.</p>
         <div className="mt-4 flex gap-2">
-          {["Clinic Details", "Opening Hours", "Generate Slots"].map((label, i) => (
+          {["Clinic Details", "Opening Hours", "Set Availability"].map((label, i) => (
             <div key={label} className="flex flex-1 items-center gap-2">
               <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                 i < stepIdx ? "bg-green-500 text-white" :
