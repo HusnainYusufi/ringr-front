@@ -54,7 +54,7 @@ export default function DemoPage() {
       });
       if (!res.ok) throw new Error("Could not start call");
       const body = await res.json();
-      const accessToken = body.data?.accessToken ?? body.accessToken;
+      const accessToken = body.data?.accessToken;
 
       await clientRef.current!.startCall({
         accessToken,
