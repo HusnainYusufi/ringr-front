@@ -18,6 +18,11 @@ export async function proxy(request: NextRequest) {
   }
 
   if (isPublic) {
+    // Never redirect away from accept-invite when a token is in the URL —
+    // the admin may be logged in on the same browser but still needs to activate a new account.
+    if (pathname.startsWith("/auth/accept-invite") && request.nextUrl.searchParams.has("token")) {
+      return NextResponse.next();
+    }
     const dest = role === "SUPER_ADMIN" || role === "TENANT_ADMIN" ? "/admin" : "/portal";
     return NextResponse.redirect(new URL(dest, request.url));
   }
