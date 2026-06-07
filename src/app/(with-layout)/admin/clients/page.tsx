@@ -37,6 +37,8 @@ export default function ClientsPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
+  const [deleting, setDeleting] = useState<string | null>(null);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
 
   function load(q?: string) {
     setLoading(true);
@@ -47,6 +49,19 @@ export default function ClientsPage() {
   }
 
   useEffect(() => { load(); }, []);
+
+  async function handleDelete(id: string) {
+    setDeleting(id);
+    setConfirmId(null);
+    try {
+      await api.delete(`/admin/providers/${id}`);
+      setClients((prev) => prev.filter((c) => c.id !== id));
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Delete failed");
+    } finally {
+      setDeleting(null);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -95,11 +110,20 @@ export default function ClientsPage() {
                   <p className="text-xs text-gray-400">{c.email}</p>
                 </div>
 
-                <div className="text-right text-sm">
-                  <p className="text-2xl font-bold text-dark dark:text-white">
-                    ${(c.bookingStats.revenueCents / 100).toFixed(2)}
-                  </p>
-                  <p className="text-xs text-gray-400">total revenue</p>
+                <div className="flex items-start gap-4">
+                  <div className="text-right text-sm">
+                    <p className="text-2xl font-bold text-dark dark:text-white">
+                      ${(c.bookingStats.revenueCents / 100).toFixed(2)}
+                    </p>
+                    <p className="text-xs text-gray-400">total revenue</p>
+                  </div>
+                  <button
+                    onClick={() => setConfirmId(c.id)}
+                    disabled={deleting === c.id}
+                    className="rounded-lg border border-red-200 px-3 py-1.5 text-xs font-medium text-red-500 hover:bg-red-50 disabled:opacity-40 dark:border-red-800 dark:hover:bg-red-900/20"
+                  >
+                    {deleting === c.id ? "Deleting…" : "Delete"}
+                  </button>
                 </div>
               </div>
 
@@ -125,6 +149,31 @@ export default function ClientsPage() {
               )}
             </div>
           ))}
+        </div>
+      )}
+
+      {confirmId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-dark">
+            <h3 className="text-lg font-semibold text-dark dark:text-white">Delete clinic?</h3>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+              This will deactivate the clinic and all its staff accounts. Existing bookings are preserved. This cannot be undone.
+            </p>
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => handleDelete(confirmId)}
+                className="flex-1 rounded-lg bg-red-500 py-2.5 text-sm font-semibold text-white hover:bg-red-600"
+              >
+                Yes, delete
+              </button>
+              <button
+                onClick={() => setConfirmId(null)}
+                className="flex-1 rounded-lg border border-stroke py-2.5 text-sm font-semibold text-dark dark:border-dark-3 dark:text-white"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
